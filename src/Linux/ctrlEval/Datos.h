@@ -74,11 +74,12 @@ char* nuevoString(char n[]);
 punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones);
 punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacion, punteroAsignaciones asignaciones);
 punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre);
+punteroExpresion crearExpresion();
 punteroExpresion crearSuma(punteroExpresion izq, punteroExpresion der);
 punteroExpresion crearMult(punteroExpresion izq, punteroExpresion der);
 punteroExpresion crearResta(punteroExpresion izq, punteroExpresion der);
 punteroExpresion crearDiv(punteroExpresion izq, punteroExpresion der);
-punteroExpresion nuevoNumero(int);
-punteroExpresion nuevaVariable(char*);
+punteroExpresion nuevoNumero(int num);
+punteroExpresion nuevaVariable(char* var);
 
 #endif

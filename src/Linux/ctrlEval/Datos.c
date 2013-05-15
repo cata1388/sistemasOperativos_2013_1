@@ -1,14 +1,97 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "Data.h"
+#include "Datos.h"
 
 
-char* nuevoString(char n[]){
-  char *p;
-  int longitud;
-  p = (char *) malloc(strlen(n)+1);
-  strcpy(p,n);
-  return p;
+char* nuevoString(char *viejo){
+  char *nuevo;
+  nuevo = malloc(strlen(viejo)+1);
+  strcpy(nuevo,viejo);
+  return nuevo;
 }
+
+punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones){
+	punteroConjunto p = (punteroConjunto) malloc(sizeof(conjunto));
+	p->numeroConjunto = numero;
+	p->asignaciones = asignaciones;
+	return p;
+}
+
+punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacion, punteroAsignaciones asignaciones){
+	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
+	p->punAsignacion = asignacion;
+	p->punteroAsignacionesSiguiente = asignaciones;
+	return p;
+}
+
+punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre){
+	punteroAsignacion p = (punteroAsignacion) malloc(sizeof(asignacion));
+	p->idAsignacion = id;
+	p->expresion = expre;
+	return p;
+}
+
+punteroExpresion crearExpresion(){
+	punteroExpresion p = (punteroExpresion) malloc(sizeof(expresion));
+	p->expreIzq = p->expreDer = NULL;
+	return p;
+}
+
+punteroExpresion crearSuma(punteroExpresion izq, punteroExpresion der){
+	punteroExpresion p;
+	p = crearExpresion();
+	p->tipoNodo = T_OPERADOR;
+	p->infoNodo.oper = O_SUMA;
+	p->expreIzq = izq;
+	p->expreDer = der;
+	return p;	
+}
+
+punteroExpresion crearMult(punteroExpresion izq, punteroExpresion der){
+	punteroExpresion p;
+	p = crearExpresion();
+	p->tipoNodo = T_OPERADOR;
+	P->infoNodo.oper = O_MULTIPLICACION;
+	p->expreIzq = izq;
+	p->expreDer = der;
+	return p;
+}
+
+punteroExpresion crearResta(punteroExpresion izq, punteroExpresion der){
+	punteroExpresion p;
+	p = crearExpresion();
+	p->tipoNodo = T_OPERADOR;
+	p->infoNodo.oper = O_RESTA;
+	p->expreIzq = izq;
+	p->expreDer = der;
+	return p;
+}
+
+punteroExpresion crearDiv(punteroExpresion izq, punteroExpresion der){
+	punteroExpresion p; 
+	p = crearExpresion();
+	p->tipoNodo = T_OPERADOR;
+	p->infoNodo.oper = O_DIVISION;
+	p->expreIzq = izq;
+	p->expreDer = der;
+	return p;
+}
+
+punteroExpresion nuevoNumero(int num){
+	punteroExpresion p;
+	p = crearExpresion();
+	p->tipoNodo = T_NUMERO;
+	p->infoNodo.numero = num;
+	return p;
+}
+
+punteroExpresion nuevaVariable(char* var){
+	punteroExpresion p;
+	p = crearExpresion();
+	p->tipoNodo = T_ID;
+	p->infoNodo.id = var;
+	return p;	
+}
+
 

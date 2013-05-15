@@ -1,7 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
-	#include "Data.h"
+	#include "Datos.h"
 
     void yyerror(char *s);
 %}
@@ -19,7 +19,6 @@
 
 		
 }
-
 
 /////////////////////////////////////////
 ////////////   TERMINALES    ///////////
