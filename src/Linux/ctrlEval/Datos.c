@@ -18,9 +18,9 @@ punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones){
 	return p;
 }
 
-punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacion, punteroAsignaciones asignaciones){
+punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacio, punteroAsignaciones asignaciones){
 	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
-	p->punAsignacion = asignacion;
+	p->punAsignacion = asignacio;
 	p->punteroAsignacionesSiguiente = asignaciones;
 	return p;
 }
@@ -52,7 +52,7 @@ punteroExpresion crearMult(punteroExpresion izq, punteroExpresion der){
 	punteroExpresion p;
 	p = crearExpresion();
 	p->tipoNodo = T_OPERADOR;
-	P->infoNodo.oper = O_MULTIPLICACION;
+	p->infoNodo.oper = O_MULTIPLICACION;
 	p->expreIzq = izq;
 	p->expreDer = der;
 	return p;
@@ -93,5 +93,10 @@ punteroExpresion nuevaVariable(char* var){
 	p->infoNodo.id = var;
 	return p;	
 }
+
+
+
+
+
 
 

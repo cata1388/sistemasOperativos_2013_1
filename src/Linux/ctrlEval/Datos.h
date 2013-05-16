@@ -3,6 +3,27 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////                                   /////////////////////
+/////////////////////   declaracion de las estructuras  /////////////////////
+////////////////////                                   /////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+typedef struct Conjunto conjunto;
+typedef struct Conjunto* punteroConjunto;
+
+typedef struct ListaAsignaciones asignaciones;
+typedef struct ListaAsignaciones* punteroAsignaciones;
+
+typedef struct Asignacion asignacion;
+typedef struct Asignacion* punteroAsignacion;
+
+typedef struct Expresion expresion;
+typedef struct Expresion* punteroExpresion;
+
+typedef struct ListaConjuntos conjuntos;
+typedef struct ListaConjuntos* punteroConjuntos;
+
+///////////////////////////////////////////////////////////////////////////////
+//////////////////////                                   /////////////////////
 /////////////////////   definicion de las estructuras   /////////////////////
 ////////////////////                                   /////////////////////
 ///////////////////////////////////////////////////////////////////////////
@@ -11,7 +32,7 @@ enum Operador{O_SUMA, O_RESTA, O_MULTIPLICACION, O_DIVISION};
 enum tipoNodo{T_NUMERO, T_OPERADOR, T_ID};
 
 union infoNodo{
-	enum operador oper;
+	enum Operador oper;
 	int numero;
 	char *id;
 };
@@ -42,26 +63,7 @@ struct ListaConjuntos{
 	punteroConjuntos punteroConjuntosSiguiente;
 };
 
-///////////////////////////////////////////////////////////////////////////////
-//////////////////////                                   /////////////////////
-/////////////////////   declaracion de las estructuras  /////////////////////
-////////////////////                                   /////////////////////
-///////////////////////////////////////////////////////////////////////////
 
-typedef struct Conjunto conjunto;
-typedef struct Conjunto* punteroConjunto;
-
-typedef struct ListaAsignaciones asignaciones;
-typedef struct ListaAsignaciones* punteroAsignaciones;
-
-typedef struct Asignacion asignacion;
-typedef struct Asignacion* punteroAsignacion;
-
-typedef struct Expresion expresion;
-typedef struct Expresion* punteroExpresion;
-
-typedef struct ListaConjuntos conjuntos;
-typedef struct ListaConjuntos* punteroConjuntos;
 
 ///////////////////////////////////////////////////////////////////////////////
 //////////////////////                                   /////////////////////
