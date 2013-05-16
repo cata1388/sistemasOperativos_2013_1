@@ -4,6 +4,7 @@
 #include "Datos.h"
 
 
+
 char* nuevoString(char *viejo){
   char *nuevo;
   nuevo = malloc(strlen(viejo)+1);
@@ -15,6 +16,13 @@ punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones){
 	punteroConjunto p = (punteroConjunto) malloc(sizeof(conjunto));
 	p->numeroConjunto = numero;
 	p->asignaciones = asignaciones;
+	return p;
+}
+
+punteroConjuntos agregarListaConjuntos(punteroConjunto conjunto, punteroConjuntos conjuntos){
+	punteroConjunto p = (punteroConjunto) malloc(sizeof(conjuntos));
+	p->punConjunto = conjunto;
+	p->punteroConjuntosSiguiente = conjuntos;
 	return p;
 }
 
@@ -93,10 +101,6 @@ punteroExpresion nuevaVariable(char* var){
 	p->infoNodo.id = var;
 	return p;	
 }
-
-
-
-
 
 
 

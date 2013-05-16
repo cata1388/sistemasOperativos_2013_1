@@ -42,8 +42,9 @@
 /////////////////////////////////////////
 /////////////  NO TERMINALES  //////////
 ///////////////////////////////////////
-%start ArchCfg
-%type <conjuntos> ArchCfg
+%start abssyn
+%type <ListaConjuntos> abssyn
+%type <ListaConjuntos> ArchCfg
 %type <expresion> Exp
 %type <conj> Conjunto
 %type <asignacion> Assignment
@@ -53,13 +54,16 @@
 ///////// REGLAS GRAMATICALES /////////
 //////////////////////////////////////
 %%
-ArchCfg: Conjunto ArchCfg {$$ = yyval.ListaConjuntos = $1;};
-		 |Conjunto;
+
+abssyn: ArchCfg {$$ = yyval.ListaConjuntos = $1;};
+
+ArchCfg: Conjunto ArchCfg {$$ = agregarListaConjuntos($1, $2;}
+		 |Conjunto {$$ = $1};
 
 Conjunto: SET NUMBER OPENBRACE Assignments CLOSEBRACE {$$ = nuevoConjunto($2, $4);};
 
 Assignments: Assignment Assignments {$$ = agregarListaAsignaciones($1, $2);}	
-            |Assignment;
+            |Assignment {$$ = $1};
 		
 Assignment:	ID EQUAL Exp SEMICOLON {$$ = nuevaAsignacion($1, $3);};
 
