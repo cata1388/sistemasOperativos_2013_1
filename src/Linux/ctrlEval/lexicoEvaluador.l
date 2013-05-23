@@ -1,5 +1,5 @@
 %{
-#include "parserEvaluador.h"
+#include "sintacticoEvaluador.tab.h"
 #include "Datos.h"
 %}
 %option noyywrap

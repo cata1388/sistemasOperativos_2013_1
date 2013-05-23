@@ -75,6 +75,7 @@ char* nuevoString(char n[]);
 
 punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones);
 punteroConjuntos agregarListaConjuntos(punteroConjunto conjunto, punteroConjuntos conjuntos);
+punteroConjuntos crearListaConjuntos(punteroConjunto conjunto);
 punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacion, punteroAsignaciones asignaciones);
 punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre);
 punteroExpresion crearExpresion();
