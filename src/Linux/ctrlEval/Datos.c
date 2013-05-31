@@ -20,7 +20,7 @@ punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones){
 }
 
 punteroConjuntos agregarListaConjuntos(punteroConjunto conjunto, punteroConjuntos conjuntos){
-	punteroConjunto p = (punteroConjunto) malloc(sizeof(conjuntos));
+	punteroConjuntos p = (punteroConjuntos) malloc(sizeof(conjuntos));
 	p->punConjunto = conjunto;
 	p->punteroConjuntosSiguiente = conjuntos;
 	return p;
