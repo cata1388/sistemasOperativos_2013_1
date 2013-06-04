@@ -10,6 +10,6 @@ lex.yy.c: lexicoEvaluador.l
 	flex --header-file=lexico.h lexicoEvaluador.l
 
 clean:
-	rm -f sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h lex.yy.c \
+	rm -f sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h lex.yy.c lexico.h \
 	analizador 
 

@@ -44,6 +44,7 @@ punteroAsignaciones crearListaAsignaciones(punteroAsignacion asignacion){
 	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
 	p->punAsignacion = asignacion;
 	p->punteroAsignacionesSiguiente = NULL;
+	return p;
 }
 
 punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre){
@@ -115,32 +116,5 @@ punteroExpresion nuevaVariable(char* var){
 	return p;	
 }
 
-int evaluar(punteroExpresion expresion){
-	switch(expresion->tipoNodo){
-		case T_NUMERO:
-			return expresion->infoNodo.numero;
-			break;
-		
-		case T_OPERADOR:
-			switch(expresion->infoNodo.oper){
-				case O_SUMA:
-					return evaluar(expresion->expreIzq) + evaluar(expresion->expreDer);
-					break;
-				case O_RESTA:
-					return evaluar(expresion->expreIzq) - evaluar(expresion->expreDer);
-					break;
-				case O_MULTIPLICACION:
-					return evaluar(expresion->expreIzq) * evaluar(expresion->expreDer);
-					break;
-				case O_DIVISION:
-					return evaluar(expresion->expreIzq) / evaluar(expresion->expreDer);
-					break;
-			}
-		case T_ID:
-			return (int)(expresion->infoNodo.id);
-			break;	
-	}
-	return 0;
-}
 
 

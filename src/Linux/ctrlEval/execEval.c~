@@ -1,17 +1,16 @@
 
-#include "execEval.h"
 #include "lexicoEvaluador.h"
 #include "Datos.h"
 
 extern int yyparse();
 
-punteroExpresion execEval(FILE* infile){
+punteroConjuntos execEval(FILE* infile){
 	yyin = infile;
 	
 	if(!yyparse()){
-		return yylval.expresion;
+		return yylval.ListaConjuntos;
 	}
-	return null;
+	return NULL;
 }
 	void yyerror(char* s){
 		fprintf(stderr, "%s at %d in '%s' \n", s, yylineno, yytext);

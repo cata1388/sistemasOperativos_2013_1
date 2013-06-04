@@ -4,7 +4,7 @@
 
 extern int yyparse();
 
-punteroConjunto execEval(FILE* infile){
+punteroConjuntos execEval(FILE* infile){
 	yyin = infile;
 	
 	if(!yyparse()){
