@@ -26,11 +26,24 @@ punteroConjuntos agregarListaConjuntos(punteroConjunto conjunto, punteroConjunto
 	return p;
 }
 
+punteroConjuntos crearListaConjuntos(punteroConjunto conjunto){
+	punteroConjuntos p = (punteroConjuntos) malloc(sizeof(conjuntos));
+	p->punConjunto = conjunto;
+	p->punteroConjuntosSiguiente = NULL;
+	return p;
+}
+
 punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacio, punteroAsignaciones asignaciones){
 	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
-	p->punAsignacion = asignacio;
+	p->punAsignacion = asignacion;
 	p->punteroAsignacionesSiguiente = asignaciones;
 	return p;
+}
+
+punteroAsignaciones crearListaAsignaciones(punteroAsignacion asignacion){
+	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
+	p->punAsignacion = asignacion;
+	p->punteroAsignacionesSiguiente = NULL;
 }
 
 punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre){
@@ -102,5 +115,32 @@ punteroExpresion nuevaVariable(char* var){
 	return p;	
 }
 
+int evaluar(punteroExpresion expresion){
+	switch(expresion->tipoNodo){
+		case T_NUMERO:
+			return expresion->infoNodo.numero;
+			break;
+		
+		case T_OPERADOR:
+			switch(expresion->infoNodo.oper){
+				case O_SUMA:
+					return evaluar(expresion->expreIzq) + evaluar(expresion->expreDer);
+					break;
+				case O_RESTA:
+					return evaluar(expresion->expreIzq) - evaluar(expresion->expreDer);
+					break;
+				case O_MULTIPLICACION:
+					return evaluar(expresion->expreIzq) * evaluar(expresion->expreDer);
+					break;
+				case O_DIVISION:
+					return evaluar(expresion->expreIzq) / evaluar(expresion->expreDer);
+					break;
+			}
+		case ID:
+			return expresion->infoNodo.id;
+			break;	
+	}
+	return 0;
+}
 
 

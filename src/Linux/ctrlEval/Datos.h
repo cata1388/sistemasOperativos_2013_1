@@ -73,10 +73,12 @@ struct ListaConjuntos{
 
 char* nuevoString(char n[]);
 
-punteroConjunto crearConjunto(int numero, punteroAsignaciones asignaciones);
+punteroConjunto nuevoConjunto(int numero, punteroAsignaciones asignaciones);
 punteroConjuntos agregarListaConjuntos(punteroConjunto conjunto, punteroConjuntos conjuntos);
+punteroConjuntos crearListaConjuntos(punteroConjunto conjunto);
 punteroAsignaciones agregarListaAsignaciones(punteroAsignacion asignacion, punteroAsignaciones asignaciones);
-punteroAsignacion crearAsignacion(char* id, punteroExpresion expre);
+punteroAsignaciones crearListaAsignaciones(punteroAsignacion asignacion);
+punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre);
 punteroExpresion crearExpresion();
 punteroExpresion crearSuma(punteroExpresion izq, punteroExpresion der);
 punteroExpresion crearMult(punteroExpresion izq, punteroExpresion der);
@@ -84,5 +86,6 @@ punteroExpresion crearResta(punteroExpresion izq, punteroExpresion der);
 punteroExpresion crearDiv(punteroExpresion izq, punteroExpresion der);
 punteroExpresion nuevoNumero(int num);
 punteroExpresion nuevaVariable(char* var);
+int evaluar(punteroExpresion expresion);
 
 #endif

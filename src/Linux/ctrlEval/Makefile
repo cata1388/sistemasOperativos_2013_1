@@ -1,16 +1,24 @@
 .phony: all clean
 
-all: analizador
+all: ctrlEval
 
-analizador: lex.yy.o sintacticoEvaluador.tab.o Datos.o
-	$(CC) lex.yy.o sintacticoEvaluador.tab.o  -o analizador -lfl -lm
+CFLAGS=-wall
+LDFLAGS=
 
-sintacticoEvaluador.tab.c: sintacticoEvaluador.y
-	bison -g -d $<
+SRC=parserEval.c ctrlEval.c Datos.c execEval.c 
+OBJECTS=$(SRC:.c=.o)
 
-lex.yy.c: lexicoEvaluador.l
-	flex --header-file=lexicoEvaluador.h lexicoEvaluador.l
+parserEval.c parserEval.h: sintacticoEvaluador.y Tokens.h
+	bison --verbose --warnings --output=parserEval.c \
+	--defines=parserEval.h sintacticoEvaluador.y
+
+lexicoEval.c lexicoEval.h: lexicoEvaluador.l
+	flex --outfile=$@ --header-file=lexicoEvaluador.h $<
+
+ctrlEval: $(OBJECTS)
+	gcc $(LDFLAGS) -o $@ $(OBJECTS)
 
 clean:
-	rm -f sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h lex.yy.c \
-	analizador 
+	rm -f *.o parserEval.c lexicoEval.h lexicoEval.c lexicoEval.h *.c~ *.l~ *.y~ Makefile~ \
+	ctrlEval execEval.o
+

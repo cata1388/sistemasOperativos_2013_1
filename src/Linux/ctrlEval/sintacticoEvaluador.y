@@ -3,8 +3,7 @@
 #include <stdlib.h>
 #include "Datos.h"
 
-extern int yylex(void);
-extern char *yytext;
+int yylex();
 void yyerror(char *s);
 %}
 
@@ -56,20 +55,20 @@ void yyerror(char *s);
 %%
 
 
-abssyn: ArchCfg { yyval.ListaConjuntos = $1;};
+abssyn: ArchCfg {$$ = yyval.ListaConjuntos = $1;};
 
-ArchCfg: Conjunto ArchCfg {$$ = agregarListaConjuntos($1, $2);}
-       | Conjunto         { yyval.conjunto = $1; }
+ArchCfg: Conjunto ArchCfg {$$ = agregarListaConjuntos($1, $2); }
+       | Conjunto         {$$ = crearListaConjuntos($1); }
        ;
 
-Conjunto: SET NUMBER OPENBRACE Assignments CLOSEBRACE {$$ = crearConjunto($2, $4);}
+Conjunto: SET NUMBER OPENBRACE Assignments CLOSEBRACE {$$ = nuevoConjunto($2, $4);}
 ;
 
 Assignments: Assignment Assignments {$$ = agregarListaAsignaciones($1, $2);}
-   |Assignment { yyval.asignacion = $1; }
+   |Assignment {$$ = crearListaAsignaciones($1); }
    ;
 
-Assignment:	ID EQUAL Exp SEMICOLON {$$ = crearAsignacion($1, $3);}
+Assignment:	ID EQUAL Exp SEMICOLON {$$ = nuevaAsignacion($1, $3);}
           ;
 
 Exp: Exp PLUS Exp {$$ = crearSuma($1, $3);}
@@ -81,11 +80,3 @@ Exp: Exp PLUS Exp {$$ = crearSuma($1, $3);}
     |OPENPAR Exp CLOSEPAR {$$ = $2;}
     ;
 %%
-
-//////////////////////////
-/////////////////////////
-
-void yyerror(char *s){
-    printf("ERROR SINTACTICO, SE ENCONTRO: %s Y SE ESPERABA OTRA COSA\n",yytext);
-}
-
