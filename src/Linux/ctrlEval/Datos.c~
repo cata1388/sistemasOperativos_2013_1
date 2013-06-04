@@ -44,7 +44,6 @@ punteroAsignaciones crearListaAsignaciones(punteroAsignacion asignacion){
 	punteroAsignaciones p = (punteroAsignaciones) malloc(sizeof(asignaciones));
 	p->punAsignacion = asignacion;
 	p->punteroAsignacionesSiguiente = NULL;
-	return p;
 }
 
 punteroAsignacion nuevaAsignacion(char* id, punteroExpresion expre){
