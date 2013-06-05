@@ -16,5 +16,5 @@ evaluador.o: evaluador.c
 	$(CC) -c evaluador.c
 clean:
 	rm -f sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h lex.yy.c lexico.h \
-	analizador execEval.o Datos.o lex.yy.o sintacticoEvaluador.tab.o sintacticoEvaluador.dot evaluador.o lexicoEvaluador.h
+	analizador execEval.o Datos.o lex.yy.o sintacticoEvaluador.tab.o sintacticoEvaluador.dot evaluador.o *.~ lexicoEvaluador.h
 
