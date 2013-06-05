@@ -1,15 +1,17 @@
 all: analizador
 
-analizador: lex.yy.o sintacticoEvaluador.tab.o data.o
-	$(CC) lex.yy.o sintacticoEvaluador.tab.o  -o analizador -lfl -lm
+analizador: lex.yy.o sintacticoEvaluador.tab.o Datos.o execEval.o
+	$(CC) lex.yy.o sintacticoEvaluador.tab.o Datos.o execEval.o -o analizador -lfl -lm
 
-sintacticoEvaluador.tab.c: sintacticoEvaluador.y
+sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h: sintacticoEvaluador.y
 	bison -g -d $<
 
-lex.yy.c: lexicoEvaluador.l
+lex.yy.c: lexicoEvaluador.l sintacticoEvaluador.tab.h
 	flex --header-file=lexico.h lexicoEvaluador.l
 
+Datos.o: Datos.c Datos.h
+	$(CC) -c Datos.c
 clean:
 	rm -f sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h lex.yy.c lexico.h \
-	analizador 
+	analizador execEval.o Datos.o lex.yy.o sintacticoEvaluador.tab.o
 
