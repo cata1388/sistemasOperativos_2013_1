@@ -48,6 +48,7 @@ int evaluar(punteroExpresion expresion, punteroAsignaciones asignaciones){
 }
 
 int main(int argc, char *argv[]){
+	printf("empezando \n");
 	int resultado = 0;
 	int conjExiste = 1;
 	FILE *archCfg;
@@ -58,7 +59,7 @@ int main(int argc, char *argv[]){
     	if ((archCfg = fopen(argv[1], "r")) == NULL) {
         	fprintf(stderr, "Evaluador: no pudo abrir archivo: %s \n",argv[0]);
     	}
-	
+	printf("abriendo archivo \n");
 	int numConjunto = atoi(argv[2]); //numero de conjunto a evaluar
 	punteroConjuntos listaConjuntos = execEval(archCfg);
 	punteroConjunto conjunto = listaConjuntos->punConjunto;
@@ -89,5 +90,6 @@ int main(int argc, char *argv[]){
 			resultado = evaluar(asignacion->expresion, asignaciones);
 			asignaciones = asignaciones->punteroAsignacionesSiguiente;
 		}
+		printf("el resultado del conjunto es: %d \n", resultado);
 	}
 }
