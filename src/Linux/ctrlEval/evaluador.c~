@@ -85,7 +85,7 @@ int main(int argc, char *argv[]){
 		//me queda por obtener la lista de asignaciones para evaluarlas
 		punteroAsignaciones asignaciones = conjunto->asignaciones;
 		while (asignaciones != NULL){
-			punteroAsignacion asignacion = asignaciones->punAsignacion;
+			punteroAsignacion asignacion = conjunto->punAsignacion;
 			resultado = evaluar(asignacion->expresion, asignaciones);
 			asignaciones = asignaciones->punteroAsignacionesSiguiente;
 		}

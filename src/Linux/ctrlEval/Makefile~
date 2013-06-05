@@ -1,7 +1,7 @@
 all: analizador
 
 analizador: lex.yy.o sintacticoEvaluador.tab.o Datos.o execEval.o evaluador.o
-	$(CC) lex.yy.o sintacticoEvaluador.tab.o Datos.o execEval.o evaluador.o -o analizador -lfl -lm
+	$(CC) lex.yy.o sintacticoEvaluador.tab.o Datos.o execEval.o -o evaluador.o analizador -lfl -lm
 
 sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h: sintacticoEvaluador.y
 	bison -g -d $<

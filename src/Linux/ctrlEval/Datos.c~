@@ -110,7 +110,7 @@ punteroExpresion nuevoNumero(int num){
 
 int valorId(char idValor[], punteroAsignaciones asignaciones){
 	while (asignaciones != NULL){
-		punteroAsignacion asignacion= asignaciones->punAsignacion;
+		punteroAsignacion asignacion= asignaciones->punAsignacion
 		if (strcmp(idValor, asignacion->idAsignacion) == 0){
 			return asignacion->expresion->infoNodo.numero;		
 		}
