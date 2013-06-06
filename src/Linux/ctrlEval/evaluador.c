@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "Datos.h"
-#include "execEval.h"
+#include "execSintacticoEvaluador.h"
 
 extern punteroConjuntos execEval(FILE *infile);
 
@@ -20,31 +20,29 @@ void usage(char *progname) {
 }
 
 int evaluar(punteroExpresion expresion, punteroAsignaciones asignaciones){
-	switch(expresion->tipoNodo){
-		case T_NUMERO:
-			return expresion->infoNodo.numero;
-			break;
-		
-		case T_OPERADOR:
-			switch(expresion->infoNodo.oper){
-				case O_SUMA:
-					return evaluar(expresion->expreIzq, asignaciones) + evaluar(expresion->expreDer, asignaciones);
-					break;
-				case O_RESTA:
-					return evaluar(expresion->expreIzq, asignaciones) - evaluar(expresion->expreDer, asignaciones);
-					break;
-				case O_MULTIPLICACION:
-					return evaluar(expresion->expreIzq, asignaciones) * evaluar(expresion->expreDer, asignaciones);
-					break;
-				case O_DIVISION:
-					return evaluar(expresion->expreIzq, asignaciones) / evaluar(expresion->expreDer, asignaciones);
-					break;
-			}
-		case T_ID:
-			return valorId(expresion->infoNodo.id, asignaciones);
-			break;	
-	}
-	return 0;
+		switch(expresion->tipoNodo){
+			case T_NUMERO:
+				return expresion->infoNodo.numero;
+				break;
+			case T_OPERADOR:
+				switch(expresion->infoNodo.oper){
+					case O_SUMA:
+						return evaluar(expresion->expreIzq, asignaciones) + evaluar(expresion->expreDer, asignaciones);
+						break;
+					case O_RESTA:
+						return evaluar(expresion->expreIzq, asignaciones) - evaluar(expresion->expreDer, asignaciones);
+						break;
+					case O_MULTIPLICACION:
+						return evaluar(expresion->expreIzq, asignaciones) * evaluar(expresion->expreDer, asignaciones);
+						break;
+					case O_DIVISION:
+						return evaluar(expresion->expreIzq, asignaciones) / evaluar(expresion->expreDer, asignaciones);
+						break;
+				}
+			case T_ID:
+				return valorId(expresion->infoNodo.id, asignaciones);
+				break;	
+		}
 }
 
 int main(int argc, char *argv[]){
@@ -66,7 +64,7 @@ int main(int argc, char *argv[]){
 	
 	//verificar si el archivo tiene conjuntos, de ser así busca y evalúa el indicado 	
 	if (!listaConjuntos){
-		fprintf(stderr,"Evaluador: no hay conjuntos para evaluar!! \n");
+		fprintf(stderr,"Evaluador %d: no hay conjuntos para evaluar!! \n", numConjunto);
 	}
 	else{
 		int num = conjunto->numeroConjunto;
@@ -74,7 +72,7 @@ int main(int argc, char *argv[]){
 			listaConjuntos = listaConjuntos->punteroConjuntosSiguiente;
 			if(listaConjuntos == NULL){
 				conjExiste = 0;
-				fprintf(stderr, "Evaluador: No existe el conjunto %d \n", numConjunto);			
+				fprintf(stderr, "Evaluador %d: No existe el conjunto %d \n", numConjunto, numConjunto);			
 			}
 			else{
 				conjunto = listaConjuntos->punConjunto;
@@ -88,8 +86,8 @@ int main(int argc, char *argv[]){
 		while (asignaciones != NULL){
 			punteroAsignacion asignacion = asignaciones->punAsignacion;
 			resultado = evaluar(asignacion->expresion, asignaciones);
+			printf("Evaluador %d: El resultado de %s es: %d \n", numConjunto,asignacion->idAsignacion, resultado);
 			asignaciones = asignaciones->punteroAsignacionesSiguiente;
 		}
-		printf("el resultado del conjunto es: %d \n", resultado);
 	}
 }

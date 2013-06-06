@@ -87,6 +87,7 @@ punteroExpresion crearDiv(punteroExpresion izq, punteroExpresion der);
 punteroExpresion nuevoNumero(int num);
 punteroExpresion nuevaVariable(char* var);
 int valorId(char idValor[], punteroAsignaciones asignaciones);
+int cantidadAsig(punteroAsignaciones asignaciones);
 int evaluar(punteroExpresion expresion, punteroAsignaciones asignaciones);
 
 #endif

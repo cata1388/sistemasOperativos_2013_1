@@ -112,13 +112,22 @@ int valorId(char idValor[], punteroAsignaciones asignaciones){
 	while (asignaciones != NULL){
 		punteroAsignacion asignacion= asignaciones->punAsignacion;
 		if (strcmp(idValor, asignacion->idAsignacion) == 0){
-			return asignacion->expresion->infoNodo.numero;		
+			return asignacion->expresion->infoNodo.numero;	
 		}
 		else{
 			asignaciones = asignaciones->punteroAsignacionesSiguiente;		
 		}
-		return 0;
 	}
+}
+
+int cantidadAsig(punteroAsignaciones asignaciones){
+	int cont = 0;
+	punteroAsignaciones asig = asignaciones->punteroAsignacionesSiguiente;
+	while(asig != NULL){
+		asig = asignaciones->punteroAsignacionesSiguiente;
+		cont++;
+	}
+	return cont;
 }
 
 punteroExpresion nuevaVariable(char* var){

@@ -56,7 +56,7 @@ void yyerror(char *s);
 
 
 abssyn: ArchCfg {$$ = yylval.ListaConjuntos = $1;};
-
+		
 ArchCfg: Conjunto ArchCfg {$$ = agregarListaConjuntos($1, $2); }
        | Conjunto         {$$ = crearListaConjuntos($1); }
        ;
