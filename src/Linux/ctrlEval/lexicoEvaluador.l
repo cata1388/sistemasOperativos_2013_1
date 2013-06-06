@@ -21,7 +21,7 @@ ID          [a-zA-Z]([a-zA-Z]|[0-9])*
 ";"             {return SEMICOLON;}
 {NUMBER}        {yylval.entero = atoi(yytext); return(NUMBER);}
 {ID}            {yylval.cadena = nuevoString(yytext); return ID;}
-[ \t\n\r]		/*ignore whitespace*/
+[ \t\n\r]	/*ignore whitespace*/
 .               {printf("CARACTER NO RECONOCIDO \n");}
 <<EOF>>         {yyterminate();}
 %%

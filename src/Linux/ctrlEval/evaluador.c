@@ -11,6 +11,7 @@
 #include <string.h>
 #include "Datos.h"
 #include "execSintacticoEvaluador.h"
+#include "execSintacticoEntorno.h"
 
 extern punteroConjuntos execEval(FILE *infile);
 
@@ -20,42 +21,43 @@ void usage(char *progname) {
 }
 
 int evaluar(punteroExpresion expresion, punteroAsignaciones asignaciones){
-		switch(expresion->tipoNodo){
-			case T_NUMERO:
-				return expresion->infoNodo.numero;
-				break;
-			case T_OPERADOR:
-				switch(expresion->infoNodo.oper){
-					case O_SUMA:
-						return evaluar(expresion->expreIzq, asignaciones) + evaluar(expresion->expreDer, asignaciones);
-						break;
-					case O_RESTA:
-						return evaluar(expresion->expreIzq, asignaciones) - evaluar(expresion->expreDer, asignaciones);
-						break;
-					case O_MULTIPLICACION:
-						return evaluar(expresion->expreIzq, asignaciones) * evaluar(expresion->expreDer, asignaciones);
-						break;
-					case O_DIVISION:
-						return evaluar(expresion->expreIzq, asignaciones) / evaluar(expresion->expreDer, asignaciones);
-						break;
-				}
-			case T_ID:
-				return valorId(expresion->infoNodo.id, asignaciones);
-				break;	
-		}
+	switch(expresion->tipoNodo){
+		case T_NUMERO:
+			return expresion->infoNodo.numero;
+			break;
+		case T_OPERADOR:
+			switch(expresion->infoNodo.oper){
+				case O_SUMA:
+					return evaluar(expresion->expreIzq, asignaciones) + evaluar(expresion->expreDer, asignaciones);
+					break;
+				case O_RESTA:
+					return evaluar(expresion->expreIzq, asignaciones) - evaluar(expresion->expreDer, asignaciones);
+					break;
+				case O_MULTIPLICACION:
+					return evaluar(expresion->expreIzq, asignaciones) * evaluar(expresion->expreDer, asignaciones);
+					break;
+				case O_DIVISION:
+					return evaluar(expresion->expreIzq, asignaciones) / evaluar(expresion->expreDer, asignaciones);
+					break;
+			}
+		case T_ID:
+			return valorId(expresion->infoNodo.id, asignaciones);
+			break;	
+	}
 }
 
 int main(int argc, char *argv[]){
 	printf("empezando \n");
 	int resultado = 0;
 	int conjExiste = 1;
+	char entornoBuffer[2000]; 
 	FILE *archCfg;
 	if (argc != 3) {
         	usage(argv[0]);
     	}
 		//archivo q contiene los conjuntos a evaluar
     	if ((archCfg = fopen(argv[1], "r")) == NULL) {
-        	fprintf(stderr, "Evaluador: no pudo abrir archivo: %s \n",argv[0]);
+        	fprintf(stderr, "Evaluador: no pudo abrir archivo: %s \n",argv[1]);
     	}
 	printf("abriendo archivo \n");
 	int numConjunto = atoi(argv[2]); //numero de conjunto a evaluar
@@ -81,13 +83,22 @@ int main(int argc, char *argv[]){
 		}
 	}
 	if (conjExiste){
+		while(1){
+			read(0,entornoBuffer,strlen(entornoBuffer));
+	      	fprintf(stdin, "Evaluador: entorno recibido: %s\n", entornoBuffer);
+ 	    }
 		//me queda por obtener la lista de asignaciones para evaluarlas
 		punteroAsignaciones asignaciones = conjunto->asignaciones;
+		punteroAsignaciones entorno;
+		char *tmp;
+		strcpy(tmp, entornoBuffer);
+		entorno = (punteroAsignaciones)tmp;
 		while (asignaciones != NULL){
 			punteroAsignacion asignacion = asignaciones->punAsignacion;
-			resultado = evaluar(asignacion->expresion, asignaciones);
+			resultado = evaluar(asignacion->expresion, entorno);
 			printf("Evaluador %d: El resultado de %s es: %d \n", numConjunto,asignacion->idAsignacion, resultado);
 			asignaciones = asignaciones->punteroAsignacionesSiguiente;
+			write(stdin, entornoBuffer, 2000);
 		}
 	}
 }

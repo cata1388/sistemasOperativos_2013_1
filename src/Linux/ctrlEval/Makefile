@@ -6,10 +6,10 @@ analizador: lex.yy.o sintacticoEvaluador.tab.o Datos.o execSintacticoEvaluador.o
 ctrlEval: lex.yy.o sintacticoEvaluador.tab.o Datos.o execSintacticoEvaluador.o ctrlEval.o
 	$(CC) lex.yy.o sintacticoEvaluador.tab.o Datos.o execSintacticoEvaluador.o ctrlEval.o -o ctrlEval -lfl -lm
 
-sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h: sintacticoEvaluador.y
+sintacticoEvaluador.tab.c sintacticoEvaluador.tab.h: sintacticoEvaluador.y 
 	bison -g -d $<
-
-lex.yy.c: lexicoEvaluador.l sintacticoEvaluador.tab.h
+	
+lex.yy.c: lexicoEvaluador.l sintacticoEvaluador.tab.h 
 	flex --header-file=lexicoEvaluador.h lexicoEvaluador.l
 
 Datos.o: Datos.c Datos.h

@@ -30,11 +30,11 @@ void yyerror(char *s);
 /////////////  NO TERMINALES  //////////
 ///////////////////////////////////////
 
-%start Entorno
-%type <ListaAsignaciones> Entorno
+%start entorno
+%type <ListaAsignaciones> entorno
 %type <ListaAsignaciones> variables
 %type <asignacion> variable
-%type <expresion> valor
+%type <expresion> exp
 
 
 ////////////////////////////////////////
@@ -42,9 +42,12 @@ void yyerror(char *s);
 //////////////////////////////////////
 %%
 
-Entorno: OPENBRACE variables CLOSEBRACE { yylval.ListaAsignaciones = $2;};
+entorno: OPENBRACE variables CLOSEBRACE { yylval.ListaAsignaciones = $2;};
 
-variables:	variable variables { $$ = agregarListaAsignaciones($1, $2);};
+variables: variable variables { $$ = agregarListaAsignaciones($1, $2);};
 
-variable: ID EQUAL NUMBER SEMICOLON
+variable: ID EQUAL exp SEMICOLON {$$ = nuevaAsignacion($1, $3);};
+
+exp: NUMBER {$$ = nuevoNumero($1);};
+
 %%
